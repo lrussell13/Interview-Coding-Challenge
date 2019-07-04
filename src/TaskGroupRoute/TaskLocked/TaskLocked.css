@@ -1,0 +1,13 @@
+.task-locked {
+    color: gray;
+}
+
+.task-locked-container {
+    display: flex;
+}
+
+.task-locked-image-container {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}

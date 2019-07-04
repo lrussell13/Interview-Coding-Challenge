@@ -1,0 +1,9 @@
+.task-container {
+    display: flex;
+}
+
+.complete-image {
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}

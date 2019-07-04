@@ -1,0 +1,22 @@
+.task-group {
+    display: flex;
+}
+
+.image-container {
+    width: 10px;
+    margin-right: 50px;
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    color: rgb(231, 231, 231);
+}
+
+p {
+    color: rgb(131, 131, 131);
+}
+
+.task-group-link {
+    color: black
+}

@@ -1,0 +1,9 @@
+.all-groups {
+    color: rgb(81, 197, 236);
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
