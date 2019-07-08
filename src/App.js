@@ -3,6 +3,7 @@ import './App.css'
 import ThingsToDo from './ThingsToDo/ThingsToDo';
 import { Route, Switch } from 'react-router-dom'
 import TaskGroupRoute from './TaskGroupRoute/TaskGroupRoute';
+import TaskContext from './TaskContext';
 
 export default class App extends Component {
   state = {
@@ -22,25 +23,24 @@ export default class App extends Component {
   }
 
   onTaskToggle = (id) => {
-    let newCompleteIds = [];
-    if(this.state.completedIds.includes(id)){
-      let index = this.state.completedIds.indexOf(id)
-      newCompleteIds = this.state.completedIds
+    let newCompleteIds = this.state.completedIds;
+    if(newCompleteIds.includes(id)){
+
+      let index = newCompleteIds.indexOf(id)
       newCompleteIds.splice(index, 1);
 
       for(let i in this.state.tasks){
-        if(this.state.tasks[i].dependencyIds.length > 0){
+ 
           if(this.state.tasks[i].dependencyIds.includes(id)){
-           if(this.state.completedIds.includes(this.state.tasks[i].id)){
-            let ind = this.state.completedIds.indexOf(this.state.tasks[i].id)
+           if(newCompleteIds.includes(this.state.tasks[i].id)){
+            let ind = newCompleteIds.indexOf(this.state.tasks[i].id)
             newCompleteIds.splice(ind, 1);
            }
-          }
         }
       }
     
     } else {
-      newCompleteIds = [...this.state.completedIds, id]
+      newCompleteIds.push(id) 
     }
 
     this.setState({completedIds: newCompleteIds});
@@ -49,10 +49,14 @@ export default class App extends Component {
   render() {
     return (
       <div className="app">
+      
       <Switch>
+      <TaskContext.Provider value={{onTaskToggle: this.onTaskToggle, }}>
         <Route exact path='/' component={() => <ThingsToDo groups={this.state.groups} completedIds={this.state.completedIds}/>} />
-        <Route exact path='/groups/:id' component={(props) => <TaskGroupRoute onTaskToggle={this.onTaskToggle} id={props.match.params.id} completedIds={this.state.completedIds} groups={this.state.groups} tasks={this.state.tasks}/>}/>
+        <Route exact path='/groups/:id' component={(props) => <TaskGroupRoute id={props.match.params.id} completedIds={this.state.completedIds} groups={this.state.groups} tasks={this.state.tasks}/>}/>
+      </TaskContext.Provider>
       </Switch>
+      
       </div>
     )
   }

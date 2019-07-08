@@ -1,5 +1,6 @@
 import React from 'react';
 import './Task.css'
+import TaskContext from '../../TaskContext';
 
 function returnImage(completedIds, taskId){
     if(completedIds.includes(taskId)){
@@ -10,13 +11,16 @@ function returnImage(completedIds, taskId){
 
 function Task(props){
     return (
-        <div onClick={() => props.onTaskToggle(props.task.id)}>
+        <TaskContext.Consumer> 
+        {(value) => ( 
+        <div className="task" onClick={() => value.onTaskToggle(props.task.id)}>
             <hr/>
             <div className="task-container">
             <div className="complete-image" dangerouslySetInnerHTML={{ __html: returnImage(props.completedIds, props.task.id)}} />
                 <h2>{props.task.task}</h2>
             </div>
-        </div>
+        </div>)}
+        </TaskContext.Consumer>
     )
 }
 

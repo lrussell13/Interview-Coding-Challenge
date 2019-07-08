@@ -24,7 +24,7 @@ function TaskGroupRoute(props){
             </div>
             {currentTasks.map((task) => {
                 if(task.dependencyIds.length <= 0 || (task.dependencyIds.every(id => props.completedIds.indexOf(id) >= 0))){
-                    return <Task completedIds={props.completedIds} onTaskToggle={props.onTaskToggle} key={task.id} task={task}/>
+                    return <Task completedIds={props.completedIds} key={task.id} task={task}/>
                 }
                 return <TaskLocked key={task.id} task={task}/>
             })}
